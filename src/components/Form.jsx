@@ -1,41 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Form extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      name: '',
-      texto: '',
-      primeiroAtributo: 0,
-      segundoAtributo: 0,
-      terceiroAtributo: 0,
-      imagemCarta: '',
-      nivel: 'normal',
-      SuperTrunfo: false,
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange({ target }) {
-    const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-
-    this.setState({
-      [name]: value,
-    });
-  }
-
   render() {
     const {
-      name,
-      texto,
-      primeiroAtributo,
-      segundoAtributo,
-      terceiroAtributo,
-      imagemCarta,
-      nivel,
-      SuperTrunfo,
-    } = this.state;
+      cardName,
+      cardDescription,
+      cardAttr1, cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      hasTrunfo,
+      isSaveButtonDisabled,
+      onInputChange,
+      onSaveButtonClick } = this.props;
     return (
 
       <form>
@@ -44,8 +23,8 @@ class Form extends React.Component {
           <input
             type="text"
             name="name"
-            value={ name }
-            onChange={ this.handleChange }
+            value={ cardName }
+            onChange={ onInputChange }
             data-testid="name-input"
             id="nome"
           />
@@ -54,8 +33,8 @@ class Form extends React.Component {
           Apenas algum texto em uma área de texto
           <textarea
             name="texto"
-            value={ texto }
-            onChange={ this.handleChange }
+            value={ cardDescription }
+            onChange={ onInputChange }
             data-testid="description-input"
             id="texto"
           />
@@ -65,8 +44,8 @@ class Form extends React.Component {
           <input
             type="number"
             name="primeiroAtributo"
-            value={ primeiroAtributo }
-            onChange={ this.handleChange }
+            value={ cardAttr1 }
+            onChange={ onInputChange }
             data-testid="attr1-input"
             id="primeiroAtributo"
           />
@@ -76,8 +55,8 @@ class Form extends React.Component {
           <input
             type="number"
             name="segundoAtributo"
-            value={ segundoAtributo }
-            onChange={ this.handleChange }
+            value={ cardAttr2 }
+            onChange={ onInputChange }
             data-testid="attr2-input"
             id="segundoAtributo"
           />
@@ -87,8 +66,8 @@ class Form extends React.Component {
           <input
             type="number"
             name="terceiroAtributo"
-            value={ terceiroAtributo }
-            onChange={ this.handleChange }
+            value={ cardAttr3 }
+            onChange={ onInputChange }
             data-testid="attr3-input"
             id="terceiroAtributo"
           />
@@ -98,8 +77,8 @@ class Form extends React.Component {
           <input
             type="text"
             name="imagemCarta"
-            value={ imagemCarta }
-            onChange={ this.handleChange }
+            value={ cardImage }
+            onChange={ onInputChange }
             data-testid="image-input"
             id="imagemCarta"
           />
@@ -109,8 +88,8 @@ class Form extends React.Component {
           <select
             type="select"
             name="nivel"
-            value={ nivel }
-            onChange={ this.handleChange }
+            value={ cardRare }
+            onChange={ onInputChange }
             data-testid="rare-input"
             id="nivel"
           >
@@ -123,17 +102,39 @@ class Form extends React.Component {
           carta Super-Trunfo
           <input
             type="checkbox"
+            checked={ cardTrunfo }
             name="SuperTrunfo"
-            value={ SuperTrunfo }
-            onChange={ this.handleChange }
+            onChange={ onInputChange }
             data-testid="trunfo-input"
             id="SuperTrunfo"
           />
         </label>
-        <button type="button" data-testid="save-button">Salvar</button>
+        <button
+          type="button"
+          disabled={ isSaveButtonDisabled }
+          onClick={ onSaveButtonClick }
+          data-testid="save-button"
+        >
+          Salvar
+        </button>
       </form>
     );
   }
 }
+
+Form.propTypes = {
+  cardName: PropTypes.string.isRequired,
+  cardDescription: PropTypes.string.isRequired,
+  cardAttr1: PropTypes.string.isRequired,
+  cardAttr2: PropTypes.string.isRequired,
+  cardAttr3: PropTypes.string.isRequired,
+  cardImage: PropTypes.string.isRequired,
+  cardRare: PropTypes.string.isRequired,
+  cardTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
+  isSaveButtonDisabled: PropTypes.bool.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onSaveButtonClick: PropTypes.func.isRequired,
+};
 
 export default Form;
