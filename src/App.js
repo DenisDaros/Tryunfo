@@ -14,9 +14,11 @@ class App extends React.Component {
       imagemCarta: '',
       nivel: '',
       SuperTrunfo: false,
-      salvar: true };
+      salvar: true,
+      array: [] };
     this.inputChange = this.inputChange.bind(this);
     this.checkImput = this.checkImput.bind(this);
+    this.botaoSalvar = this.botaoSalvar.bind(this);
   }
 
   inputChange({ target }) {
@@ -66,6 +68,34 @@ class App extends React.Component {
     });
   }
 
+  botaoSalvar() {
+    const { primeiroAtributo,
+      segundoAtributo,
+      terceiroAtributo,
+      name,
+      texto,
+      imagemCarta,
+      nivel } = this.state;
+
+    const objeto = { primeiroAtributo,
+      segundoAtributo,
+      terceiroAtributo,
+      name,
+      texto,
+      imagemCarta,
+      nivel,
+      SuperTrunfo };
+    this.setState((state) => ({ array: [...state.array, objeto] }));
+    this.setState({ name: '',
+      texto: '',
+      primeiroAtributo: 0,
+      segundoAtributo: 0,
+      terceiroAtributo: 0,
+      imagemCarta: '',
+      nivel: '',
+      SuperTrunfo: false });
+  }
+
   render() {
     const {
       name,
@@ -92,6 +122,7 @@ class App extends React.Component {
           cardTrunfo={ SuperTrunfo }
           onInputChange={ this.inputChange }
           isSaveButtonDisabled={ salvar }
+          onSaveButtonClick={ this.botaoSalvar }
         />
         <Card
           cardName={ name }
