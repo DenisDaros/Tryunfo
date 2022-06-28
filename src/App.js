@@ -1,4 +1,5 @@
 import React from 'react';
+// import { array } from 'prop-types';
 import Form from './components/Form';
 import Card from './components/Card';
 
@@ -15,10 +16,12 @@ class App extends React.Component {
       nivel: '',
       SuperTrunfo: false,
       salvar: true,
+      hastrunfo: true,
       array: [] };
     this.inputChange = this.inputChange.bind(this);
     this.checkImput = this.checkImput.bind(this);
     this.botaoSalvar = this.botaoSalvar.bind(this);
+    this.checagemHastrunfo = this.checagemHastrunfo.bind(this);
   }
 
   inputChange({ target }) {
@@ -68,6 +71,11 @@ class App extends React.Component {
     });
   }
 
+  checagemHastrunfo() {
+    const { array } = this.state;
+    return array.some((i) => i.SuperTrunfo);
+  }
+
   botaoSalvar() {
     const { primeiroAtributo,
       segundoAtributo,
@@ -93,7 +101,10 @@ class App extends React.Component {
       terceiroAtributo: 0,
       imagemCarta: '',
       nivel: '',
-      SuperTrunfo: false });
+      hastrunfo: this.checagemHastrunfo(),
+      SuperTrunfo: false,
+      salvar: true,
+    });
   }
 
   render() {
@@ -107,6 +118,7 @@ class App extends React.Component {
       nivel,
       SuperTrunfo,
       salvar,
+      hastrunfo,
     } = this.state;
     return (
       <div>
@@ -123,6 +135,7 @@ class App extends React.Component {
           onInputChange={ this.inputChange }
           isSaveButtonDisabled={ salvar }
           onSaveButtonClick={ this.botaoSalvar }
+          hasTrunfo={ hastrunfo }
         />
         <Card
           cardName={ name }
