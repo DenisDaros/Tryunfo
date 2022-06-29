@@ -100,15 +100,15 @@ class Form extends React.Component {
           </select>
         </label>
         {hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p> : (
-          <label htmlFor="SuperTrunfo">
+          <label htmlFor="superTrunfo">
             carta Super-Trunfo
             <input
               type="checkbox"
               checked={ cardTrunfo }
-              name="SuperTrunfo"
+              name="superTrunfo"
               onChange={ onInputChange }
               data-testid="trunfo-input"
-              id="SuperTrunfo"
+              id="superTrunfo"
             />
           </label>)}
 
@@ -134,7 +134,7 @@ Form.propTypes = {
   cardAttr3: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
-  cardTrunfo: PropTypes.bool.isRequired,
+  cardTrunfo: PropTypes.string.isRequired,
   hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,

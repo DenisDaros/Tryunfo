@@ -1,5 +1,6 @@
 import React from 'react';
 // import { array } from 'prop-types';
+// import { array } from 'prop-types';
 import Form from './components/Form';
 import Card from './components/Card';
 
@@ -14,7 +15,7 @@ class App extends React.Component {
       terceiroAtributo: 0,
       imagemCarta: '',
       nivel: '',
-      SuperTrunfo: false,
+      superTrunfo: '',
       salvar: true,
       hastrunfo: false,
       array: [] };
@@ -73,7 +74,7 @@ class App extends React.Component {
 
   checagemHastrunfo() {
     const { array } = this.state;
-    return array.some((i) => i.SuperTrunfo);
+    return array.some((i) => i.superTrunfo);
   }
 
   botaoSalvar() {
@@ -83,7 +84,8 @@ class App extends React.Component {
       name,
       texto,
       imagemCarta,
-      nivel } = this.state;
+      nivel,
+      superTrunfo } = this.state;
 
     const objeto = { primeiroAtributo,
       segundoAtributo,
@@ -92,19 +94,21 @@ class App extends React.Component {
       texto,
       imagemCarta,
       nivel,
-      SuperTrunfo };
-    this.setState((state) => ({ array: [...state.array, objeto] }));
-    this.setState({ name: '',
-      texto: '',
-      primeiroAtributo: 0,
-      segundoAtributo: 0,
-      terceiroAtributo: 0,
-      imagemCarta: '',
-      nivel: '',
-      hastrunfo: !this.checagemHastrunfo(),
-      SuperTrunfo: false,
-      salvar: true,
-    });
+      superTrunfo };
+    this.setState((state) => ({ array: [...state.array, objeto] }),
+      () => {
+        this.setState({ name: '',
+          texto: '',
+          primeiroAtributo: 0,
+          segundoAtributo: 0,
+          terceiroAtributo: 0,
+          imagemCarta: '',
+          nivel: '',
+          hastrunfo: !this.checagemHastrunfo(),
+          superTrunfo: false,
+          salvar: true,
+        });
+      });
   }
 
   render() {
@@ -116,9 +120,10 @@ class App extends React.Component {
       terceiroAtributo,
       imagemCarta,
       nivel,
-      SuperTrunfo,
+      superTrunfo,
       salvar,
       hastrunfo,
+      array,
     } = this.state;
     return (
       <div>
@@ -131,7 +136,7 @@ class App extends React.Component {
           cardAttr3={ terceiroAtributo }
           cardImage={ imagemCarta }
           cardRare={ nivel }
-          cardTrunfo={ SuperTrunfo }
+          cardTrunfo={ superTrunfo }
           onInputChange={ this.inputChange }
           isSaveButtonDisabled={ salvar }
           onSaveButtonClick={ this.botaoSalvar }
@@ -145,9 +150,22 @@ class App extends React.Component {
           cardAttr3={ terceiroAtributo }
           cardImage={ imagemCarta }
           cardRare={ nivel }
-          cardTrunfo={ SuperTrunfo }
+          cardTrunfo={ superTrunfo }
           onInputChange={ this.inputChange }
         />
+        {array.map((i) => (
+          <div key={ i.name }>
+            <Card
+              cardName={ i.name }
+              cardDescription={ i.texto }
+              cardAttr1={ i.primeiroAtributo }
+              cardAttr2={ i.segundoAtributo }
+              cardAttr3={ i.terceiroAtributo }
+              cardImage={ i.imagemCarta }
+              cardRare={ i.nivel }
+              cardTrunfo={ i.superTrunfo }
+            />
+          </div>))}
       </div>
     );
   }
