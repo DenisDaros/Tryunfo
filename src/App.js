@@ -16,7 +16,7 @@ class App extends React.Component {
       nivel: '',
       SuperTrunfo: false,
       salvar: true,
-      hastrunfo: true,
+      hastrunfo: false,
       array: [] };
     this.inputChange = this.inputChange.bind(this);
     this.checkImput = this.checkImput.bind(this);
@@ -101,7 +101,7 @@ class App extends React.Component {
       terceiroAtributo: 0,
       imagemCarta: '',
       nivel: '',
-      hastrunfo: this.checagemHastrunfo(),
+      hastrunfo: !this.checagemHastrunfo(),
       SuperTrunfo: false,
       salvar: true,
     });
