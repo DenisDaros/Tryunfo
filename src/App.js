@@ -104,7 +104,7 @@ class App extends React.Component {
           terceiroAtributo: 0,
           imagemCarta: '',
           nivel: '',
-          hastrunfo: !this.checagemHastrunfo(),
+          hastrunfo: this.checagemHastrunfo(),
           superTrunfo: false,
           salvar: true,
         });
